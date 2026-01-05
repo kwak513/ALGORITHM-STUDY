@@ -1,0 +1,23 @@
+# PRODUCT 테이블: ** PRODUCT_ID **, PRODUCT_CODE (유니크), PRICE
+# OFFLINE_SALE 테이블: OFFLINE_SALE_ID, ** PRODUCT_ID **, SALES_AMOUNT, SALES_DATE
+
+# 문제: PRODUCT_CODE 별, PRICE * SALES_AMOUNT (SALES), 
+    # - SALES 기준 내림차순
+    # - SALES 같으면, PRODUCT_CODE 오름차순
+
+
+
+SELECT 
+    P.PRODUCT_CODE,
+    SUM(P.PRICE * OS.SALES_AMOUNT) AS SALES
+FROM PRODUCT AS P
+JOIN OFFLINE_SALE AS OS
+ON P.PRODUCT_ID = OS.PRODUCT_ID
+GROUP BY PRODUCT_CODE
+ORDER BY SALES DESC, PRODUCT_CODE ASC;
+
+
+-- 
+-- 1. SUM: 
+--     - 상품코드 별 매출액(판매가 * 판매량) ** 합계 ** 출력이기 때문에 ** SUM ** 써야함
+--     - GROUP BY PRODUCT_CODE 이기 때문에, SELECT 문에 순수하게 컬럼 자체로 올 수 있는 건 PRODUCT_CODE이고, 나머지는 집계함수 필수
