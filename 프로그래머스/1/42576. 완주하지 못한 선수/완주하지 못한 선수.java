@@ -3,34 +3,26 @@ import java.util.*;
 class Solution {
     public String solution(String[] participant, String[] completion) {
         
-        HashMap<String, Integer> marathonMap = new HashMap<>();
+        Map<String, Integer> map = new HashMap<>();
         
-        for(int i = 0; i < participant.length; i++){
-            int defaultValue = marathonMap.getOrDefault(participant[i], 0);
+        for(String part: participant){
+            int currentVal = map.getOrDefault(part, 0);
             
-            marathonMap.put(participant[i], defaultValue + 1);
+            map.put(part, currentVal + 1);
+            
         }
         
-        for(int j = 0; j < completion.length; j++){
-            int defaultValue2 = marathonMap.getOrDefault(completion[j], 0);
+        for(String complete: completion){
             
-            marathonMap.put(completion[j], defaultValue2 - 1);
+            map.put(complete, map.get(complete) - 1);
         }
         
-        for(String name: marathonMap.keySet()){
-            if(marathonMap.get(name) != 0){
-                return name;
+        for(String item: map.keySet()){
+            if(map.get(item) == 1){
+                return item;
             }
         }
         
-        
-    
-        
-        return "";
+        return "-1";
     }
 }
-
-/*
-- getOrDefault(a,b): 키(a)가 있으면 value 반환, 없으면 b 반환 -> Null 예외 방지
-- keySet(): 키 순회할때 사용
-*/
