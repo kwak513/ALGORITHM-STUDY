@@ -2,26 +2,20 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
         
         for(int num: nums){
-            int currentVal = map.getOrDefault(num, 0);
-            
-            map.put(num, currentVal);
+            set.add(num);
         }
         
-        int numToSelect = nums.length / 2;
-        int mapLength = map.keySet().size();
+        int setSize = set.size();
+        int numLength = nums.length / 2;
         
-        if(numToSelect >= mapLength){
-            return mapLength;
+        if(setSize > numLength){
+            return numLength;
         }
         else{
-            return numToSelect;
+            return setSize;
         }
-        
-        
-        
     }
 }
